@@ -5,10 +5,10 @@ import { AiFillMessage, AiFillBell, AiOutlineShop } from "react-icons/ai";
 import { MdOutlineExpandMore, MdOutlineOndemandVideo } from "react-icons/md";
 import { RiFlag2Line } from "react-icons/ri";
 import { IoGameControllerOutline } from "react-icons/io5";
-// import { useSession, signOut } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 
 const Header = () => {
-  // const { data: session, status } = useSession();
+  const { data: session } = useSession();
   return (
     <div className="sticky z-50 flex h-16 bg-white items-center p-2 shadow-md top-0">
       {/* Left */}
@@ -58,14 +58,14 @@ const Header = () => {
       {/* Right */}
       <div className="flex items-center space-x-2 justify-end min-w-fit">
         <Image
-          // src={session?.user.image}
+          onClick={signOut}
+          src={session?.user.image}
           height={40}
           width={40}
-          // onClick={signOut}
           className="rounded-full cursor-pointer"
         />
         <p className="hidden xl:inline-flex font-semibold text-sm whitespace-nowrap p-3 max-w-xs">
-          {/* {session?.user.name.split(" ")[0]} */}
+          {session?.user.name.split(" ")[0]}
         </p>
         <CgMenuGridO
           size={20}
