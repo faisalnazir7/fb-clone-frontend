@@ -10,9 +10,9 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 
 const CreatePost = () => {
-//   const FACEBOOK_CLONE_ENDPOINT = "http://localhost:8080/api/v1/post";
+  const FACEBOOK_CLONE_ENDPOINT = "http://localhost:8080/api/v1/post";
   const { data: session, status } = useSession();
-//   const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const inputRef = useRef(null);
   const hiddenFileInput = useRef(null);
   const [imageToPost, setImageToPost] = useState(null);
@@ -21,32 +21,32 @@ const CreatePost = () => {
     hiddenFileInput.current.click();
   };
 
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     if (!inputRef.current.value) return;
-//     const formData = new FormData();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!inputRef.current.value) return;
+    const formData = new FormData();
 
-//     formData.append("file", imageToPost);
-//     console.log("imagetopost: " + imageToPost);
-//     formData.append("post", inputRef.current.value);
-//     formData.append("name", session?.user.name);
-//     formData.append("email", session?.user.email);
-//     formData.append("profilePic", session?.user.image);
+    formData.append("file", imageToPost);
+    console.log("imagetopost: " + imageToPost);
+    formData.append("post", inputRef.current.value);
+    formData.append("name", session?.user.name);
+    formData.append("email", session?.user.email);
+    formData.append("profilePic", session?.user.image);
 
-//     axios
-//       .post(FACEBOOK_CLONE_ENDPOINT, formData, {
-//         headers: { Accept: "application/json" },
-//       })
-//       .then((response) => {
-//         inputRef.current.value = "";
-//         dispatch(addPost(response.data));
-//         console.log(response.data);
-//         removeImage();
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       });
-//   };
+    axios
+      .post(FACEBOOK_CLONE_ENDPOINT, formData, {
+        headers: { Accept: "application/json" },
+      })
+      .then((response) => {
+        inputRef.current.value = "";
+        dispatch(addPost(response.data));
+        console.log(response.data);
+        removeImage();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const addImageToPost = (e) => {
     const reader = new FileReader();
@@ -77,7 +77,7 @@ const CreatePost = () => {
             type="text"
             ref={inputRef}
             placeholder={`What's on your mind, ${session?.user.name}?`}></input>
-          <button hidden /*onClick={handleSubmit}*/ >
+          <button hidden onClick={handleSubmit} >
             Submit
           </button>
         </form>
